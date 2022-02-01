@@ -122,6 +122,10 @@ namespace E_Assignment.Areas.Identity.Pages.Account
                     }
                     else
                     {
+                        if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                        {
+                            return RedirectToAction("ListUsers", "Administrator");
+                        }
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
