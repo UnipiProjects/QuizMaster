@@ -4,16 +4,16 @@
 }
 
 <h1> @ViewBag.Title</h1>
-<form method="post">
+<form asp-controller="Diploma" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>            
     <div class="form-group col-md-6">
         <label asp-for="Title"></label>
-        <input class="form-control" asp-for="@Model.Title" />
+        <input class="form-control" asp-for="@Model.Title"/>
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
     <div class="form-group col-md-6">
         <label asp-for="TeacherName"></label>
-        <input class="form-control" asp-for="@Model.TeacherName" />
+        <input class="form-control" asp-for="@Model.TeacherName" value="@ViewBag.UserName" readonly/>
         <span asp-validation-for="TeacherName" class="text-danger"></span>
     </div>
     <div class="form-group col-md-6">

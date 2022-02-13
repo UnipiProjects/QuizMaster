@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Show Diplomas";
+}
+
+<h1>@ViewBag.ErrorMessage</h1>
+@model IEnumerable<Diploma>
+
+
+@foreach (var diploma in Model)
+{
+    if (ViewBag.UserName == diploma.TeacherName)
+    {
+        <div class="card mt-3">
+            <div class="card-header">
+                <label hidden>@diploma.Id</label>
+                <label class="form-group">@diploma.Title</label>
+            </div>
+            <div class="card-body">
+                <label class="form-group">
+                    @if (diploma.Status == 0)
+                    {
+                        <text>Pending</text>
+                    }
+                    else if (diploma.Status == 1)
+                    {
+                        <text>Assigned</text>
+                    }
+                    else
+                    {
+                        <text>Completed</text>
+                    }
+                </label>
+            </div>
+            <div class="card-footer">
+                <a asp-action="EditDiploma" asp-route-id="@diploma.Id" asp-controller="Diploma" class="btn btn-dark" style="width:auto">Edit</a>
+            </div>
+        </div>
+    }
+}

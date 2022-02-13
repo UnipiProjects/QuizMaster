@@ -1,4 +1,5 @@
 using E_Assignment.Data;
+using E_Assignment.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,6 +37,8 @@ namespace E_Assignment
                     .Build();
                     options.Filters.Add(new AuthorizeFilter(policy));
             });
+            services.AddScoped<IDiplomaRepository, SQLDiplomaRepository>();
+            services.AddAntiforgery(o => o.SuppressXFrameOptionsHeader = true);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +55,8 @@ namespace E_Assignment
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+            app.UseXfo(o => o.Deny());
+
             app.UseStaticFiles();
 
             app.UseRouting();

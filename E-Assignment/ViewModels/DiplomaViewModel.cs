@@ -1,15 +1,16 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace E_Assignment.Models
+namespace E_Assignment.ViewModels
 {
-    public class Diploma
+    public class DiplomaViewModel
     {
         public int Id { get; set; }
-        [Required]     
+        [Required]
         [Display(Name = "Title")]
         public string Title { get; set; }
         [Display(Name = "Teacher Name")]
@@ -20,6 +21,6 @@ namespace E_Assignment.Models
         public string StudentName { get; set; }
         public int Status { get; set; }
         [Display(Name = "File")]
-        public string FilePath { get; set; }
+        public IFormFile FilePath { get; set; }
     }
 }

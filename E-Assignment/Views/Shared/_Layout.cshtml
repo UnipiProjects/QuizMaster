@@ -46,15 +46,22 @@
                                     Diploma
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" asp-controller="Diploma" asp-action="Create">Create Diploma</a>                                    
+                                    <a class="dropdown-item" asp-controller="Diploma" asp-action="Create">Create Diploma</a>
+                                    <a class="dropdown-item" asp-controller="Diploma" asp-action="ShowDiplomas">All Diplomas</a>
                                 </div>
                             </li>
                         }
                         @if (signInManager.IsSignedIn(User) && User.IsInRole("Student"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-controller="Administrator" asp-action="ListRoles">Manage Roles</a>
-                            </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-light dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Diploma
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">                            
+                            <a class="dropdown-item" asp-controller="Diploma" asp-action="ShowDiplomasStudents">All Diplomas</a>
+                        </div>
+                    </li>
                         }
                         <partial name="_LoginPartial.cshtml" />
                     </ul>

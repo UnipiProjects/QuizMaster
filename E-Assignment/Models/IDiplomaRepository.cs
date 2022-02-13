@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 
 namespace E_Assignment.Models
 {
-    interface IDiplomaRepository
+    public interface IDiplomaRepository
     {
         Diploma GetDiploma(int Id);
         IEnumerable<Diploma> GetAllDiplomas();
         Diploma Add(Diploma diploma);
+        Diploma Update(Diploma diplomaChanges);
+        Diploma Delete(int id);
     }
 }
