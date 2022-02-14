@@ -20,7 +20,7 @@ namespace E_Assignment.Controllers
         }
         [Authorize]
         public IActionResult Index()
-        {
+        {            
             return View();
         }
 

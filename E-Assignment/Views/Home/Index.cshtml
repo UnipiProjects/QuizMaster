@@ -4,8 +4,7 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>This is our project</p>
+    <h1 class="display-4">Welcome</h1>    
     @if (signInManager.IsSignedIn(User) && !((User.IsInRole("Admin")) || (User.IsInRole("Teacher")) || (User.IsInRole("Student"))))
     {
         <h4>An admin has to asign you to a role.</h4>
