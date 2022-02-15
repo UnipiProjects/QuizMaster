@@ -25,7 +25,7 @@ namespace E_Assignment
                     webBuilder.ConfigureKestrel(o =>
                     {
                         o.ConfigureHttpsDefaults(o =>
-                            o.ClientCertificateMode = ClientCertificateMode.RequireCertificate);
+                            o.ClientCertificateMode = ClientCertificateMode.AllowCertificate);
                     });
                 });
     }

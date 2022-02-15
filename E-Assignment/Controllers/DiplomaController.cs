@@ -98,7 +98,7 @@ namespace E_Assignment.Controllers
         [Authorize(Roles = "Student")]       
         public IActionResult ViewDiploma(Diploma diploma)
         {
-            /* This needs fixing
+            /* 
             DiplomaViewModel model = new DiplomaViewModel();
             string fileName = null;
             if (model.FilePath != null)

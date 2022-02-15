@@ -35,6 +35,7 @@ namespace E_Assignment
                 .AddCertificate(options =>
                 {
                     options.AllowedCertificateTypes = CertificateTypes.All;
+
                 })             
                 .AddCertificateCache();
             */
