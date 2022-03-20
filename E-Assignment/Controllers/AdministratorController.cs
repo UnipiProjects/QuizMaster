@@ -37,9 +37,7 @@ namespace E_Assignment.Controllers
                 ViewBag.ErrorMessage = $"User with Id = {id} cannot be found";
                 return View("NotFound");
             }
-
-            // GetClaimsAsync retunrs the list of user Claims
-            var userClaims = await userManager.GetClaimsAsync(user);
+            
             // GetRolesAsync returns the list of user Roles
             var userRoles = await userManager.GetRolesAsync(user);
 
@@ -51,8 +49,7 @@ namespace E_Assignment.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Address = user.Address,
-                PostalCode = user.PostalCode,
-                Claims = userClaims.Select(c => c.Value).ToList(),
+                PostalCode = user.PostalCode,                
                 Roles = userRoles
 
             };

@@ -10,7 +10,7 @@ namespace E_Assignment.ViewModels
     {
         public void EditRoleViewModel()
         {
-            Claims = new List<string>(); 
+            
             Roles = new List<string>();
         }
         public string Id { get; set; }
@@ -32,8 +32,7 @@ namespace E_Assignment.ViewModels
 
         [Required]        
         public int PostalCode { get; set; }
-
-        public List<string> Claims { get; set; }
+        
         public IList<string> Roles { get; set; }
     }
 }
