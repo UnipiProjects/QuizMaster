@@ -1,0 +1,12 @@
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<BusinessERP.Areas.Identity.Data.ApplicationUser> signInManager;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>    
+    @if (signInManager.IsSignedIn(User) && !((User.IsInRole("Admin")) || (User.IsInRole("Teacher")) || (User.IsInRole("Student"))))
+    {
+        <h4>An admin has to asign you to a role.</h4>
+    }
+</div>
