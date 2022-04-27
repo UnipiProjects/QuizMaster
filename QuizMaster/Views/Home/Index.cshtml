@@ -4,9 +4,20 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>    
-    @if (signInManager.IsSignedIn(User) && !((User.IsInRole("Admin")) || (User.IsInRole("Teacher")) || (User.IsInRole("Student"))))
-    {
-        <h4>An admin has to asign you to a role.</h4>
+    <h1 class="display-4">Welcome</h1>
+    @{
+        if (signInManager.IsSignedIn(User) && !((User.IsInRole("Admin")) || (User.IsInRole("Player"))))
+        {
+            <h4>An admin has to asign you to a role.</h4>
+        }
+        else if (signInManager.IsSignedIn(User) && ((User.IsInRole("Player"))))
+        {
+            <h4>Answer questions, level up and become Quiz Master! </h4>
+            <br>
+            <button type="button" class="btn btn-success btn-lg">Start</button>
+
+        }
     }
+
+
 </div>
