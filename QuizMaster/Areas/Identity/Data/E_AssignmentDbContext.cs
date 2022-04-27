@@ -25,5 +25,6 @@ namespace QuizMaster.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
         public DbSet<Diploma> Diplomas { get; set; }
+        public DbSet<Player> Players { get; set; }
     }
 }

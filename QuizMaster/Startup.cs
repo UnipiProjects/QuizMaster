@@ -49,6 +49,7 @@ namespace QuizMaster
                     options.Filters.Add(new AuthorizeFilter(policy));
             });
             services.AddScoped<IDiplomaRepository, SQLDiplomaRepository>();
+            services.AddScoped<IPlayerRepository, SQLPlayerRepository>();
             services.AddAntiforgery(o => o.SuppressXFrameOptionsHeader = true);
         }
 
