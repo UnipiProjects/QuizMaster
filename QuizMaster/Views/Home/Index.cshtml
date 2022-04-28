@@ -13,8 +13,11 @@
         else if (signInManager.IsSignedIn(User) && ((User.IsInRole("Player"))))
         {
             <h4>Answer questions, level up and become Quiz Master! </h4>
-            <br>
-            <button type="button" class="btn btn-success btn-lg">Start</button>
+            <br>            
+            <h2>
+                <a class="badge badge-pill badge-success" asp-controller="Player" asp-action="StartQuiz">Start Playing</a>
+            </h2>
+            
 
         }
     }
