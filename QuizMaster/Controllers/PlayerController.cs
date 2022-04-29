@@ -55,24 +55,34 @@ namespace QuizMaster.Controllers
             try
             {                                                
                 var jQuestion = JsonConvert.DeserializeObject<Question>(strResponseValue);
-                playerVM.Question = jQuestion;
-                ViewBag.question = jQuestion.question;                                
+                playerVM.Question = jQuestion;                                             
             }
             catch(Exception ex)
             {   
                 Debug.WriteLine(ex.Message.ToString());
                 ViewBag.question = "An error occured !";
             }
-            
+            //If the request call fail it will reload the action
+            if (playerVM.Question == null)
+            {
+                return RedirectToAction("StartQuiz");                
+            }
             return View(playerVM);
         }
         public IActionResult ViewRank()
         {
             return View();
         }
-        public IActionResult CheckAnswer()
+        public IActionResult CheckAnswer(PlayerViewModel playerVM)
         {
-
+            if(playerVM.InputAnswer == playerVM.Question.answer)
+            {
+                TempData["Answer"] = "Correct Answer +1 point";
+            }
+            else
+            {
+                TempData["Answer"] = "Wrong Answer -2 points";
+            }
             return RedirectToAction("StartQuiz");
         }
         public IActionResult UpgradePremium()
