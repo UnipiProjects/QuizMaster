@@ -31,7 +31,7 @@ namespace QuizMaster.Models
             return player;
         }
 
-        public IEnumerable<Player> GetAllDiplomas()
+        public IEnumerable<Player> GetAllPlayers()
         {
             return context.Players;
         }

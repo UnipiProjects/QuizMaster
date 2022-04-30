@@ -10,9 +10,11 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using QuizMaster.ViewModels;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace QuizMaster.Controllers
 {
+    [Authorize(Roles = "Player")]
     public class PlayerController : Controller
     {
         private readonly IPlayerRepository _playerRepository;
@@ -77,7 +79,10 @@ namespace QuizMaster.Controllers
         }
         public IActionResult ViewRank()
         {
-            return View();
+            TempData["Name"] = User.FindFirstValue(ClaimTypes.Name);
+            var players = _playerRepository.GetAllPlayers();
+            var playersByDescending = players.OrderByDescending(x=>x.Score);
+            return View(playersByDescending);
         }
         public IActionResult CheckAnswer(PlayerViewModel playerVM)
         {

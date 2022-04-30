@@ -8,7 +8,7 @@ namespace QuizMaster.Models
     public interface IPlayerRepository
     {
         Player GetPlayer(string Id);
-        IEnumerable<Player> GetAllDiplomas();
+        IEnumerable<Player> GetAllPlayers();
         Player Add(Player player);
         Player Update(Player playerChanges);
         Player Delete(string id);

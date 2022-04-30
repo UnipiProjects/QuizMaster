@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Player>
+
+<h2>Top Players</h2>
+@foreach (var player in Model)
+{
+    <div class="card mt-3">
+        <div class="card-header">            
+            <label class="form-group">@TempData["Name"]</label>
+        </div>
+        <div class="card-body">
+            <label class="form-group">@player.Score</label>
+        </div>        
+    </div>   
+}
