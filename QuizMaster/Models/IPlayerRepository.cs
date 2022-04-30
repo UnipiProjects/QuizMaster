@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace QuizMaster.Models
 {
-    interface IPlayerRepository
+    public interface IPlayerRepository
     {
         Player GetDiploma(int Id);
         IEnumerable<Player> GetAllDiplomas();

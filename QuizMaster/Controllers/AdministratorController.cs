@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using QuizMaster.Models;
 
 namespace QuizMaster.Controllers
 {
@@ -239,7 +240,7 @@ namespace QuizMaster.Controllers
 
         [HttpGet]
         public async Task<IActionResult> EditUsersInRole(string roleId)
-        {
+        {            
             ViewBag.roleId = roleId;
             var role = await roleManager.FindByIdAsync(roleId);
 
@@ -276,6 +277,7 @@ namespace QuizMaster.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId)
         {
+            
             var role = await roleManager.FindByIdAsync(roleId);
             if (role == null)
             {
@@ -291,7 +293,16 @@ namespace QuizMaster.Controllers
                 if (model[i].IsSelected && !(await userManager.IsInRoleAsync(user, role.Name)))
                 {
                      result = await userManager.AddToRoleAsync(user, role.Name);
-                }else if (!model[i].IsSelected && await userManager.IsInRoleAsync(user, role.Name))
+
+                    /*Add the user in Player table
+                    if(role.Name == "Player")
+                    {
+                        Player player = new Player();
+                        
+                    }
+                    */
+                }
+                else if (!model[i].IsSelected && await userManager.IsInRoleAsync(user, role.Name))
                 {
                     result = await userManager.RemoveFromRoleAsync(user, role.Name);
                 }

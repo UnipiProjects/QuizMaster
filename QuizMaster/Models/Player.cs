@@ -8,6 +8,12 @@ namespace QuizMaster.Models
 {
     public class Player
     {
+        public Player()
+        {
+            this.Questions = 100;
+            this.Rank = "Bronze";
+            this.Score = 0;
+        }
         public int Id { get; set; }
         [Required]
         [Display(Name = "Score")]
