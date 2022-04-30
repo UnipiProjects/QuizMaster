@@ -9,21 +9,22 @@
         <label>Type your answer</label>
         <input asp-for="InputAnswer" class="form-control">
         <small class="form-text text-muted">If you don't know the correct answer you can always skip. But be careful your daily questions will reduced by 1.</small>
-    </div>    
+    </div>
     <div class="form-group" id="hint">
         <label>The correct answer is: @Model.Question.answer</label>
         <input asp-for="Question.answer" hidden />
     </div>
-    @if (TempData["Answer"] != null)
+    @if (TempData["Message"] != null)
     {
         <div class="form-group">
-            <label>@TempData["Answer"]</label>
+            <label>@TempData["Message"]</label>
         </div>
     }
+    
 
     <div class="mt-3">
         <button type="submit" asp-action="CheckAnswer" class="btn btn-success">Confirm</button>
-        <a class="btn btn-dark" asp-controller="Player" asp-action="StartQuiz">Skip Question</a>
+        <a class="btn btn-dark" asp-controller="Player" asp-action="SkipQuestion">Skip Question</a>
         <button type="button" onclick="ShowHint()" class="btn btn-warning">Hint</button>
     </div>
 </form>
