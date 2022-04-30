@@ -16,10 +16,12 @@ namespace QuizMaster.Controllers
     {
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<ApplicationUser> userManager;
-        public AdministratorController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        private readonly IPlayerRepository _playerRepository;
+        public AdministratorController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, IPlayerRepository playerRepository)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;
+            _playerRepository = playerRepository;
         }
 
         [HttpGet]
@@ -293,18 +295,14 @@ namespace QuizMaster.Controllers
                 if (model[i].IsSelected && !(await userManager.IsInRoleAsync(user, role.Name)))
                 {
                      result = await userManager.AddToRoleAsync(user, role.Name);
-
-                    /*Add the user in Player table
-                    if(role.Name == "Player")
-                    {
-                        Player player = new Player();
-                        
-                    }
-                    */
+                    //Add the new user in Player table
+                    Player player = new Player();
+                    player.Id = user.Id;
+                    Player newPlayer = _playerRepository.Add(player);
                 }
                 else if (!model[i].IsSelected && await userManager.IsInRoleAsync(user, role.Name))
                 {
-                    result = await userManager.RemoveFromRoleAsync(user, role.Name);
+                    result = await userManager.RemoveFromRoleAsync(user, role.Name);                    
                 }
                 else
                 {

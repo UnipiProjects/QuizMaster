@@ -14,7 +14,7 @@ namespace QuizMaster.Models
             this.Rank = "Bronze";
             this.Score = 0;
         }
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Required]
         [Display(Name = "Score")]
         public int Score { get; set; }

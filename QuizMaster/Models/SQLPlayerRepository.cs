@@ -20,7 +20,7 @@ namespace QuizMaster.Models
             return player;
         }
 
-        public Player Delete(int id)
+        public Player Delete(string id)
         {
             Player player = context.Players.Find(id);
             if(player != null)
@@ -36,7 +36,7 @@ namespace QuizMaster.Models
             return context.Players;
         }
 
-        public Player GetDiploma(int id)
+        public Player GetPlayer(string id)
         {
             return context.Players.Find(id);
         }

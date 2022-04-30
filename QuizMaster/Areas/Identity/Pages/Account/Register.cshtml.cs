@@ -128,6 +128,10 @@ namespace QuizMaster.Areas.Identity.Pages.Account
                     if (defaultrole != null)
                     {
                         IdentityResult roleresult = await _userManager.AddToRoleAsync(user, defaultrole.Name);
+                        //Add the new user in Player table
+                        Player player = new Player();
+                        player.Id = user.Id;
+                        Player newPlayer = _playerRepository.Add(player);
                     }
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
