@@ -131,6 +131,7 @@ namespace QuizMaster.Controllers
         }
         public IActionResult UpgradePremium()
         {
+
             return View();
         }
     }
