@@ -1,5 +1,7 @@
 ﻿@model QuizMaster.ViewModels.PlayerViewModel
-
+@{
+    ViewData["Title"] = "Start Quiz";
+}
 <form asp-controller="Player">
     <div class="form-group">
         <h3>Question</h3>
@@ -20,7 +22,7 @@
             <label>@TempData["Message"]</label>
         </div>
     }
-    
+
 
     <div class="mt-3">
         <button type="submit" asp-action="CheckAnswer" class="btn btn-success">Confirm</button>

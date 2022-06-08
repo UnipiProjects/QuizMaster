@@ -41,14 +41,7 @@ namespace QuizMaster.Areas.Identity.Pages.Account.Manage
             public string FirstName { get; set; }
             [PersonalData]
             [Display(Name = "Last Name")]
-            public string LastName { get; set; }
-
-            [PersonalData]
-            [Display(Name = "Address")]
-            public string Address { get; set; }
-            [PersonalData]
-            [Display(Name = "Postal Code")]
-            public int PostalCode { get; set; }
+            public string LastName { get; set; }                        
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -56,9 +49,7 @@ namespace QuizMaster.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var firstName = user.FirstName;
-            var lastName = user.LastName;
-            var address = user.Address;
-            var postalCode = user.PostalCode;
+            var lastName = user.LastName;                       
 
             Username = userName;
 
@@ -66,9 +57,7 @@ namespace QuizMaster.Areas.Identity.Pages.Account.Manage
             {
                 PhoneNumber = phoneNumber,
                 FirstName = firstName,
-                LastName = lastName,
-                Address = address,
-                PostalCode = postalCode
+                LastName = lastName                          
             };
         }
 
@@ -120,20 +109,6 @@ namespace QuizMaster.Areas.Identity.Pages.Account.Manage
             if (Input.LastName != lastName)
             {
                 user.LastName = Input.LastName;
-                await _userManager.UpdateAsync(user);
-            }
-
-            var adrress = user.Address;
-            if (Input.Address != adrress)
-            {
-                user.Address = Input.Address;
-                await _userManager.UpdateAsync(user);
-            }
-
-            var postalCode = user.PostalCode;
-            if (Input.PostalCode != postalCode)
-            {
-                user.PostalCode = Input.PostalCode;
                 await _userManager.UpdateAsync(user);
             }
 

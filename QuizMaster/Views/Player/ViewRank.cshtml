@@ -1,14 +1,27 @@
 ﻿@model IEnumerable<Player>
-
-<h2>Top Players</h2>
-@foreach (var player in Model)
-{
-    <div class="card mt-3">
-        <div class="card-header">            
-            <label class="form-group">@TempData["Name"]</label>
-        </div>
-        <div class="card-body">
-            <label class="form-group">@player.Score</label>
-        </div>        
-    </div>   
+@{
+    ViewData["Title"] = "View Rank";
 }
+<h2>Top Players</h2>
+<table class="table table-dark mt-4">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int i = 1;
+            foreach (var player in Model)
+            {
+                <tr>
+                    <th scope="row">@i</th>                
+                    <td>@TempData["Name"]</td>                                
+                    <td>@player.Score</td>
+                </tr>
+                i++;
+            }
+        }
+    </tbody>
+</table>

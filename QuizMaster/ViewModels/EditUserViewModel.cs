@@ -25,13 +25,7 @@ namespace QuizMaster.ViewModels
         public string FirstName { get; set; }
 
         [Required]        
-        public string LastName { get; set; }
-
-        [Required]        
-        public string Address { get; set; }
-
-        [Required]        
-        public int PostalCode { get; set; }
+        public string LastName { get; set; }        
         
         public IList<string> Roles { get; set; }
     }

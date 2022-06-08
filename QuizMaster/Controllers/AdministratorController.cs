@@ -50,9 +50,7 @@ namespace QuizMaster.Controllers
                 Email = user.Email,
                 UserName = user.UserName,
                 FirstName = user.FirstName,
-                LastName = user.LastName,
-                Address = user.Address,
-                PostalCode = user.PostalCode,                
+                LastName = user.LastName,                                           
                 Roles = userRoles
 
             };
@@ -74,9 +72,7 @@ namespace QuizMaster.Controllers
                 user.Email = model.Email;
                 user.UserName = model.UserName;
                 user.FirstName = model.FirstName;
-                user.LastName = model.LastName;
-                user.Address = model.Address;
-                user.PostalCode = model.PostalCode;
+                user.LastName = model.LastName;                
 
                 var result = await userManager.UpdateAsync(user);
 

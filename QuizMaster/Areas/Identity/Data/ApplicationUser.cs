@@ -15,14 +15,7 @@ namespace QuizMaster.Areas.Identity.Data
         public string FirstName { get; set; }
         [PersonalData]
         [Column(TypeName = "nvarchar(100)")]
-        public string LastName { get; set; }
-        
-        [PersonalData]
-        [Column(TypeName = "nvarchar(100)")]
-        public string Address { get; set; }
-        [PersonalData]
-        [Column(TypeName = "int")]
-        public int PostalCode { get; set; }               
+        public string LastName { get; set; }                        
 
     }
 }
