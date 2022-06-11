@@ -2,28 +2,25 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-<style>
-    body {
-        background-image: url('./wwwroot/images/Welcome.png');
-    }
-</style>
-<body>
-    <div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-        @{
-            if (signInManager.IsSignedIn(User) && !((User.IsInRole("Admin")) || (User.IsInRole("Player"))))
-            {
-                <h4>An admin has to asign you to a role.</h4>
-            }
-            else if (signInManager.IsSignedIn(User) && ((User.IsInRole("Player"))))
-            {
-                <h4>Answer questions, level up and become Quiz Master! </h4>
-                <br>
-                <h2>
-                    <a class="badge badge-pill badge-success" asp-controller="Player" asp-action="StartQuiz">Start Playing</a>
-                </h2>
-            }
+<link rel="stylesheet" href="~/css/index.css" />
+@if (signInManager.IsSignedIn(User) && ((User.IsInRole("Player"))))
+{
+    <style>
+        body {
+        background-image: url('@Url.Content("~/images/index.png")');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position:center;
         }
+    </style>
+}
+
+<body>
+    <div class="text-center">        
+        <div class="h2 fixed-bottom" style="margin-bottom: 170px;">
+            <a class="badge badge-pill badge-success" asp-controller="Player" asp-action="StartQuiz">Start Playing</a>
+        </div>                   
     </div>
 </body>
 

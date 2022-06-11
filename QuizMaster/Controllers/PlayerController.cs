@@ -80,7 +80,7 @@ namespace QuizMaster.Controllers
         public IActionResult ViewRank()
         {
             TempData["Name"] = User.FindFirstValue(ClaimTypes.Name);
-            var players = _playerRepository.GetAllPlayers();
+            var players = _playerRepository.GetAllPlayers().Where(p => p.Score > 0);            
             var playersByDescending = players.OrderByDescending(x=>x.Score);
             return View(playersByDescending);
         }

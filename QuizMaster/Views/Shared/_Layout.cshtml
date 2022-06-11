@@ -1,5 +1,6 @@
 ﻿@inject Microsoft.AspNetCore.Identity.SignInManager<QuizMaster.Areas.Identity.Data.ApplicationUser> signInManager;
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,11 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Quiz Master</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css" />    
 </head>
+
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">           
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Quiz Master</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -19,10 +21,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+                    <ul class="navbar-nav flex-grow-1">                        
                         @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                         {
                             <li class="nav-item dropdown">
@@ -39,7 +38,7 @@
                             </li>
                         }
                         @if (signInManager.IsSignedIn(User) && User.IsInRole("Player"))
-                        {                                        
+                        {
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-controller="Player" asp-action="StartQuiz">Quiz</a>
                             </li>
@@ -61,12 +60,7 @@
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - QuizMaster - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
