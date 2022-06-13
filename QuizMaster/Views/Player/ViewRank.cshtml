@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Player>
+﻿@model IEnumerable<QuizMaster.ViewModels.PlayerViewModel>
 @{
     ViewData["Title"] = "View Rank";
 }
@@ -15,23 +15,37 @@
     <div class="d-flex justify-content-center flex-nowrap">
         <div class="col-md-6">
             <h2 class="text-center">Top Players</h2>
-            <table class="table table-dark mt-4" style="border-radius:20px;">
+            <table class="table table-dark mt-4" style="border-radius: 20px;">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Username</th>
                         <th scope="col">Score</th>
+                        <th scope="col">Rank</th>
                     </tr>
                 </thead>
                 <tbody>
                     @{int i = 1;
                         foreach (var player in Model)
                         {
-                            <tr>
-                                <th scope="row">@i</th>
-                                <td>@player.Id</td>
-                                <td>@player.Score</td>
-                            </tr>
+                            if (TempData["Name"].Equals(player.UserName))
+                            {
+                                <tr style="background-color:lightgray;color:black;">
+                                    <th scope="row">@i</th>
+                                    <td>@player.FirstName</td>
+                                    <td>@player.Score</td>
+                                    <td>@player.Rank</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <th scope="row">@i</th>
+                                    <td>@player.FirstName</td>
+                                    <td>@player.Score</td>
+                                    <td>@player.Rank</td>
+                                </tr>
+                            }
                             i++;
                         }
                     }

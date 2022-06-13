@@ -1,4 +1,5 @@
 ﻿using QuizMaster.Data;
+using QuizMaster.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,9 +32,22 @@ namespace QuizMaster.Models
             return player;
         }
 
-        public IEnumerable<Player> GetAllPlayers()
+        public IEnumerable<PlayerViewModel> GetAllPlayers()
         {
-            return context.Players;
+            var query = context.Players.Join(
+                context.Users,
+                player => player.Id,
+                user => user.Id,
+                (player, user) => new PlayerViewModel()
+                {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    FirstName = user.FirstName,
+                    Score = player.Score,
+                    Questions = player.Questions,
+                    Rank = player.Rank
+                });
+            return query;
         }
 
         public Player GetPlayer(string id)
