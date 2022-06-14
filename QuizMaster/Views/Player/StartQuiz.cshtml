@@ -11,8 +11,25 @@
         background-position:center;
         }
 </style>
-<body>
-    <div class="text-center row justify-content-center">        
+<body>    
+    <div class="card mb-3" style="max-width: 350px;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="~/images/rankIcons/@(Model.Rank).png" alt="@Model.Rank" height="150" width="150">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Rank</h5>
+                    <div class="progress">
+                        <div class="progress-bar bg-@TempData["color"]" role="progressbar" style="width: @TempData["width"]" aria-valuenow="50" aria-valuemin="@TempData["min"]" aria-valuemax="@TempData["max"]">@Model.Score</div>
+                    </div>
+                    <p class="card-text"><small class="text-muted">@TempData["points"] points to reach the next rank</small></p>
+                    <p class="card-text"><small class="text-muted">Daliy Questions: @Model.Questions</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center row justify-content-center">
         <form asp-controller="Player">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">

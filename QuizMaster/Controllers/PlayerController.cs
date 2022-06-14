@@ -22,9 +22,16 @@ namespace QuizMaster.Controllers
         {
             _playerRepository = playerRepository;
         }
+        [HttpGet]
         public IActionResult StartQuiz()
         {
             PlayerViewModel playerVM = new PlayerViewModel();
+            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Player player = _playerRepository.GetPlayer(id);
+            playerVM.Rank = player.Rank;
+            playerVM.Score = player.Score;
+            playerVM.Questions = player.Questions;
+
             string urlLink = "http://jservice.io/api/random";
             string strResponseValue = string.Empty;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlLink);
@@ -75,6 +82,74 @@ namespace QuizMaster.Controllers
             {
                 return RedirectToAction("StartQuiz");                
             }
+
+            //Score clipboard            
+            string min, max, width, color;
+            double difference, minInt;
+            int maxInt;
+            if (player.Rank == "Bronze")
+            {
+                min = "0";
+                max = "99";
+                color = "danger";
+                minInt = 0;
+                maxInt = 99;
+                difference = 100;
+            }
+            else if (player.Rank == "Silver")
+            {
+                min = "100";
+                max = "199";
+                color = "info";
+                minInt = 100;
+                maxInt = 199;
+                difference = 100;
+            }
+            else if (player.Rank == "Gold")
+            {
+                min = "200";
+                max = "499";
+                color = "warning";
+                minInt = 200;
+                maxInt = 499;
+                difference = 300;
+            }
+            else if (player.Rank == "Diamond")
+            {
+                min = "500";
+                max = "699";
+                color = "info";
+                minInt = 500;
+                maxInt = 699;
+                difference = 200;
+            }
+            else if (player.Rank == "Master")
+            {
+                min = "700";
+                max = "1000";
+                color = "success";
+                minInt = 700;
+                maxInt = 1000;
+                difference = 300;
+            }
+            else
+            {
+                min = "0";
+                max = "99";
+                color = "danger";
+                minInt = 0;
+                maxInt = 99;
+                difference = 100;
+            }
+            double percentage = (player.Score - minInt) / difference * 100.0;
+            width = percentage.ToString() + "%";
+            int points = maxInt+1 - player.Score;
+            TempData["min"] = min;
+            TempData["max"] = max;
+            TempData["width"] = width;
+            TempData["color"] = color;
+            TempData["points"] = points;
+
             return View(playerVM);
         }
         public IActionResult ViewRank()
@@ -84,6 +159,7 @@ namespace QuizMaster.Controllers
             var playersByDescending = players.OrderByDescending(x=>x.Score);
             return View(playersByDescending);
         }
+        [HttpPost]
         public IActionResult CheckAnswer(PlayerViewModel playerVM)
         {
             //Smart conversion to prevent case sensitive and whitespace that result to wrong answer
