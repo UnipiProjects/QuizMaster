@@ -22,6 +22,8 @@ namespace QuizMaster.ViewModels
         [Display(Name = "Rank")]
         public string Rank { get; set; }
         public Question Question { get; set; }
+        [Required]
+        [StringLength(100)]
         public string InputAnswer { get; set; }
 
     }

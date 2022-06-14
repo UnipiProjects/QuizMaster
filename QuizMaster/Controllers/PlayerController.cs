@@ -87,37 +87,62 @@ namespace QuizMaster.Controllers
         public IActionResult CheckAnswer(PlayerViewModel playerVM)
         {
             //Smart conversion to prevent case sensitive and whitespace that result to wrong answer
-            string inputUpper, questionAnswerUpper, input, questionAnswer;
-            inputUpper = playerVM.InputAnswer.ToUpper();
-            questionAnswerUpper = playerVM.Question.answer.ToUpper();
-            input = String.Concat(inputUpper.Where(c => !Char.IsWhiteSpace(c)));
-            questionAnswer = String.Concat(questionAnswerUpper.Where(c => !Char.IsWhiteSpace(c)));
-            Debug.WriteLine(input, questionAnswer);
-
+            string inputUpper=null, questionAnswerUpper=null, input="input", questionAnswer="answer";
+            if (playerVM.InputAnswer != null)
+            {                
+                inputUpper = playerVM.InputAnswer.ToUpper();
+                questionAnswerUpper = playerVM.Question.answer.ToUpper();
+                input = String.Concat(inputUpper.Where(c => !Char.IsWhiteSpace(c)));
+                questionAnswer = String.Concat(questionAnswerUpper.Where(c => !Char.IsWhiteSpace(c)));
+                Debug.WriteLine(input, questionAnswer);
+            }
+            
             //Adds 1 point for correct answer
             //Subracts 2 points for wrong answer
             //Subtracts 1 question of the daily questions
+            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Player player = _playerRepository.GetPlayer(id);
+            player.Questions = player.Questions - 1;
             if (input == questionAnswer)
             {
-                TempData["Message"] = "Correct Answer +1 point";                
-                var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                Player player = _playerRepository.GetPlayer(id);                
-                player.Questions = player.Questions - 1;
-                player.Score = player.Score + 1;
-                _playerRepository.Update(player);
+                TempData["Message"] = "Correct Answer +1 point";                                
+                player.Score = player.Score + 1;                                
             }
             else
             {
-                TempData["Message"] = "Wrong Answer -2 points";
-                var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                Player player = _playerRepository.GetPlayer(id);
-                player.Questions = player.Questions - 1;
+                TempData["Message"] = "Wrong Answer -2 points";                
                 if (player.Score > 2)
                 {
                     player.Score = player.Score - 2;                    
-                }
-                _playerRepository.Update(player);
+                }                
             }
+
+            //Ranking System
+            if (player.Score > 0 && player.Score < 100)
+            {
+                player.Rank = "Bronze";
+
+            }
+            else if (player.Score >= 100 && player.Score < 200)
+            {
+                player.Rank = "Silver";
+
+            }
+            else if (player.Score >= 200 && player.Score < 500)
+            {
+                player.Rank = "Gold";
+
+            }
+            else if (player.Score >= 500 && player.Score < 700)
+            {
+                player.Rank = "Diamond";
+            }
+            else if (player.Score >= 700)
+            {
+                player.Rank = "Master";
+            }
+            _playerRepository.Update(player);
+
             return RedirectToAction("StartQuiz");
         }
         public IActionResult SkipQuestion(PlayerViewModel playerVM)
