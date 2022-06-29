@@ -3,7 +3,7 @@
     ViewData["Title"] = "Home Page";
 }
 <link rel="stylesheet" href="~/css/index.css" />
-@if (signInManager.IsSignedIn(User) && ((User.IsInRole("Player"))))
+@if (signInManager.IsSignedIn(User) && (User.IsInRole("Player") || User.IsInRole("PremiumPlayer")))
 {
     <style>
         body {
@@ -16,12 +16,27 @@
     </style>
 
 
-<body>
-    <div class="text-center">        
-        <div class="h2 fixed-bottom" style="margin-bottom: 170px;">
-            <a class="badge badge-pill badge-success" asp-controller="Player" asp-action="StartQuiz">Start Playing</a>
-        </div>                   
-    </div>
-</body>
+    <body>
+        <div class="text-center">
+            <div class="h2 fixed-bottom" style="margin-bottom: 170px;">
+                <a class="badge badge-pill badge-success" asp-controller="Player" asp-action="StartQuiz">Start Playing</a>
+            </div>
+        </div>
+    </body>
+}
+else if (signInManager.IsSignedIn(User) && (User.IsInRole("Admin")))
+{
+    <style>
+        body {
+        background-image: url('@Url.Content("~/images/sided.png")');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position:center;
+        }
+    </style>
+
+    <h1 class="mt-5" style="text-align:center;">You logged in as Admin.</h1>
+
 }
 

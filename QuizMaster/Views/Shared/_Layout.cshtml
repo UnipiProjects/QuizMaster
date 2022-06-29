@@ -48,8 +48,18 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link btn btn-outline-light text-dark bg-light" asp-controller="Player" asp-action="UpgradePremium">Upgrade to Premium</a>
+                            </li>
+
+                        }
+                        @if (signInManager.IsSignedIn(User) && User.IsInRole("PremiumPlayer"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="Player" asp-action="StartQuiz">Quiz</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="Player" asp-action="ViewRank">Rank Table</a>
                             </li>                            
-                        }                        
+                        }
                         <partial name="_LoginPartial.cshtml" />
                     </ul>
                 </div>

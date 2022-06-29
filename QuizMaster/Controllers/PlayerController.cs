@@ -11,16 +11,22 @@ using System.Diagnostics;
 using QuizMaster.ViewModels;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using QuizMaster.Areas.Identity.Data;
 
 namespace QuizMaster.Controllers
 {
-    [Authorize(Roles = "Player")]
+    [Authorize(Roles = "Player,PremiumPlayer")]
     public class PlayerController : Controller
     {
         private readonly IPlayerRepository _playerRepository;
-        public PlayerController(IPlayerRepository playerRepository)
-        {
+        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly UserManager<ApplicationUser> userManager;
+        public PlayerController(IPlayerRepository playerRepository, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        {            
             _playerRepository = playerRepository;
+            this.roleManager = roleManager;
+            this.userManager = userManager;
         }
         [HttpGet]
         public IActionResult StartQuiz()
@@ -178,7 +184,11 @@ namespace QuizMaster.Controllers
             //Subtracts 1 question of the daily questions
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Player player = _playerRepository.GetPlayer(id);
-            player.Questions = player.Questions - 1;
+            if (User.IsInRole("Player"))
+            {
+                player.Questions = player.Questions - 1;
+            }
+            
             if (input == questionAnswer)
             {
                 TempData["Message"] = "Correct Answer +1 point";                                
@@ -225,15 +235,28 @@ namespace QuizMaster.Controllers
         {
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Player player = _playerRepository.GetPlayer(id);
-            player.Questions = player.Questions - 1;
-            _playerRepository.Update(player);
-            TempData["Message"] = "Skipped answer -1 of daily questions";
+            if (User.IsInRole("Player"))
+            {
+                player.Questions = player.Questions - 1;
+                _playerRepository.Update(player);
+                TempData["Message"] = "Skipped answer -1 of daily questions";
+            }                        
             return RedirectToAction("StartQuiz");
         }
+        [HttpGet]
         public IActionResult UpgradePremium()
         {
 
             return View();
+        }
+        [HttpGet]
+        public async Task<RedirectToActionResult> PremiumPlayer()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await userManager.FindByIdAsync(userId);
+            await userManager.RemoveFromRoleAsync(user, "Player");
+            await userManager.AddToRoleAsync(user, "PremiumPlayer");
+            return RedirectToAction("StartQuiz");
         }
     }
 }

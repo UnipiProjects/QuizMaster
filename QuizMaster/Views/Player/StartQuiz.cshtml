@@ -24,7 +24,15 @@
                         <div class="progress-bar bg-@TempData["color"]" role="progressbar" style="width: @TempData["width"]" aria-valuenow="50" aria-valuemin="@TempData["min"]" aria-valuemax="@TempData["max"]">@Model.Score</div>
                     </div>
                     <p class="card-text"><small class="text-muted">@TempData["points"] points to reach the next rank</small></p>
-                    <p class="card-text"><small class="text-muted">Daliy Questions: @Model.Questions</small></p>
+                    @if (User.IsInRole("Player"))
+                    {
+                        <p class="card-text"><small class="text-muted">Daliy Questions: @Model.Questions</small></p>
+                    }
+                    else if (User.IsInRole("PremiumPlayer"))
+                    {
+                        <p class="card-text"><small class="text-muted">🌟Unlimited Questions</small></p>
+                    }
+
                 </div>
             </div>
         </div>
